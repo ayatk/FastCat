@@ -1,0 +1,142 @@
+group 'com.hogehuga'
+version '1.0-SNAPSHOT'
+
+def artifactName = "lego-2017"
+def printVerbose = false
+def mainClass = "nxt.Robot"
+
+apply plugin: 'java'
+
+// Prepare Lejos toolchain
+def nxjHome = System.getenv('NXJ_HOME')
+
+if (nxjHome.length() == 0) {
+    throw new GradleException('NXJ_HOME environmental variable not defined')
+}
+
+// Find libraries
+def nxtClasspath = []
+def nxtDir = new File(nxjHome + "/lib/nxt")
+nxtDir.eachFileRecurse { file ->
+    if (file.path.endsWith(".jar")) {
+        nxtClasspath << file
+    }
+}
+
+def pcClasspath = []
+def pcDir = new File(nxjHome + "/lib/pc")
+pcDir.eachFileRecurse { file ->
+    if (file.path.endsWith(".jar")) {
+        pcClasspath << file
+    }
+}
+
+apply plugin: 'java'
+
+// Ensure we only compile for Java 1.6
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+// Disable tasks useless in this context
+tasks.jar.enabled = false
+tasks.assemble.enabled = false
+
+// Cannot run tests, as there is no mechanism/support for this
+tasks.test.enabled = false
+tasks.compileTestJava.enabled = false
+tasks.processTestResources.enabled = false
+tasks.testClasses.enabled = false
+tasks.check.enabled = false
+
+// Add dependencies
+dependencies {
+    compile files(nxtClasspath)
+}
+
+// Ensure we only use the LejOS system library
+tasks.withType(JavaCompile) {
+    doFirst {
+        options.bootClasspath = ""
+        nxtClasspath.each {
+            if (options.bootClasspath != "") {
+                options.bootClasspath += File.pathSeparator
+            }
+            options.bootClasspath += it.path
+        }
+        options.fork = true
+        if (printVerbose) {
+            options.verbose = true
+        }
+        options.compilerArgs << "-extdirs" << ""
+    }
+}
+
+// Flash
+task('flash', type: JavaExec, group: 'lejos', description: 'Flash update LeJOS Firmware.') {
+    classpath = files(pcClasspath)
+    main = "lejos.pc.tools.NXJFlash"
+
+    // Use 32bit JVM
+    jvmArgs += "-d32"
+}
+
+// Add LejOS linking
+task('link', type: JavaExec, group: 'lejos',
+        description: 'Link the Java code into a .nxj binary.',
+        dependsOn: 'compileJava') {
+    classpath = files(pcClasspath)
+    main = "lejos.pc.tools.NXJLink"
+
+    // Build classpath
+    def classpathString = ""
+
+    nxtClasspath.each {
+        if (classpathString != "") {
+            classpathString += File.pathSeparator
+        }
+        classpathString += it.path
+    }
+
+    args += "--bootclasspath"
+    args += classpathString
+
+    args += "--classpath"
+    args += sourceSets.main.output.classesDir
+
+    args += "--writeorder"
+    args += "LE"
+
+    args += "-o"
+    args += "build${File.separator}${artifactName}.nxj"
+
+    args += "-od"
+    args += "build${File.separator}${artifactName}.nxd"
+
+    if (printVerbose) {
+        args += "-v"
+    }
+
+    args += mainClass
+}
+
+// Allow for uploading
+task('upload', type: JavaExec, group: 'lejos', description: 'Upload the code to the robot.', dependsOn: 'link') {
+    classpath = files(pcClasspath)
+    main = "lejos.pc.tools.NXJUpload"
+
+    // Use 32bit JVM
+    jvmArgs += "-d32"
+
+    args += "build${File.separator}${artifactName}.nxj"
+}
+
+task('uploadAndRun', type: JavaExec, group: 'lejos', description: 'Uploads and runs the code on the robot.', dependsOn: 'link') {
+    classpath = files(pcClasspath)
+    main = "lejos.pc.tools.NXJUpload"
+
+    // Use 32bit JVM
+    jvmArgs += "-d32"
+
+    args += "-r"
+    args += "build${File.separator}${artifactName}.nxj"
+}
