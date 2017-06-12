@@ -7,10 +7,14 @@ def mainClass = "nxt.Robot"
 
 apply plugin: 'java'
 
-// Prepare Lejos toolchain
-def nxjHome = System.getenv('NXJ_HOME')
+def properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-if (nxjHome.length() == 0) {
+// Prepare Lejos toolchain
+def nxjHome = (System.getenv("NXJ_HOME") != null) ? System.getenv("NXJ_HOME") :
+        properties.getProperty("nxj_home")
+
+if (nxjHome.length() == 0 || nxjHome == null) {
     throw new GradleException('NXJ_HOME environmental variable not defined')
 }
 
