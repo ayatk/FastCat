@@ -17,5 +17,3 @@ USBもしくはBluetoothで接続したロボに対してnxjファイルをア�
 アップロードして実行を1コマンドでぺいっってするコマンド
 
     ./gradlew uploadAndRun
-
-
