@@ -1,21 +1,13 @@
 package nxt;
 
 import lejos.nxt.Button;
-import lejos.nxt.Motor;
-import lejos.nxt.NXTRegulatedMotor;
+import nxt.sample.MotorControl;
 
 public class Robot {
     public static void main(String[] args) {
-        NXTRegulatedMotor rightWheel = Motor.A;
-        NXTRegulatedMotor leftWheel = Motor.C;
+        MotorControl motor = new MotorControl();
 
-
-        int speed = 300;
-
-        rightWheel.setSpeed(speed);
-        leftWheel.setSpeed(speed);
-        rightWheel.forward();
-        leftWheel.forward();
+        motor.run(400, 500);
 
         System.out.println("Press any button");
         Button.waitForAnyPress();
