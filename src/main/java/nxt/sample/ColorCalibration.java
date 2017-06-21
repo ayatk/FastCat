@@ -22,7 +22,7 @@ public class ColorCalibration {
 
         if (sensor.initBlackLevel() == 0) {
             LCD.drawString("OK", 0, 1);
-        }else {
+        } else {
             LCD.drawString("No Good...", 0, 1);
         }
 
@@ -34,7 +34,7 @@ public class ColorCalibration {
 
         if (sensor.initWhiteBalance() == 0) {
             LCD.drawString("OK", 0, 1);
-        }else {
+        } else {
             LCD.drawString("No Good...", 0, 1);
         }
 
