@@ -131,3 +131,11 @@ task('uploadAndRun', type: JavaExec, group: 'lejos', description: 'Uploads and r
     args += "-r"
     args += "build${File.separator}${artifactName}.nxj"
 }
+
+task('chartingLogger', type: JavaExec, group: 'lejos', description: 'Start ChartingLogger') {
+    classpath = files(pcClasspath)
+    main = "lejos.pc.tools.NXJChartingLogger"
+
+    // Use 32bit JVM
+    jvmArgs += "-d32"
+}
