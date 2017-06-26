@@ -31,9 +31,6 @@ public class CatCar extends AbstCar {
 
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
-//            if (Button.ENTER.isDown()) {
-//                isRightTurn = !isRightTurn;
-//            }
 
             if (checker.getColorID() == Color.BLUE) {
                 isRightTurn = !isRightTurn;
