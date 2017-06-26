@@ -48,6 +48,7 @@ public class Logger extends Thread {
             new LogColumn("R", LogColumn.DT_INTEGER),
             new LogColumn("G", LogColumn.DT_INTEGER),
             new LogColumn("B", LogColumn.DT_INTEGER),
+            new LogColumn("Brightness", LogColumn.DT_INTEGER),
             new LogColumn("RSpeed", LogColumn.DT_INTEGER),
             new LogColumn("LSpeed", LogColumn.DT_INTEGER)
     };
@@ -108,6 +109,7 @@ public class Logger extends Thread {
             _nxtLogger.writeLog(color.getRed());
             _nxtLogger.writeLog(color.getGreen());
             _nxtLogger.writeLog(color.getBlue());
+            _nxtLogger.writeLog(Math.max(Math.max(color.getRed(), color.getGreen()), color.getBlue()));
             _nxtLogger.writeLog(Motor.A.getSpeed());
             _nxtLogger.writeLog(Motor.C.getSpeed());
             _nxtLogger.finishLine();

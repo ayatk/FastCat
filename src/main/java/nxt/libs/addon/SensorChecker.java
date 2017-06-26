@@ -144,4 +144,7 @@ public class SensorChecker extends Thread {
         return colorName[getColorID()];
     }
 
+    public int getBrightness() {
+        return Math.max(Math.max(getRed(), getBlue()), getGreen());
+    }
 }
