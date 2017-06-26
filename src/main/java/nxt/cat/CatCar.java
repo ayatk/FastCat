@@ -53,6 +53,7 @@ public class CatCar extends AbstCar {
         // 20170424 追加
         System.out.println("Press ENTER to send logs");
         System.out.println("Press the others to finish");
+        Button.discardEvents();
         int pressedButton = Button.waitForAnyPress();
         // ENTERが押された時だけログ送信
         if (pressedButton == Button.ID_ENTER) {
