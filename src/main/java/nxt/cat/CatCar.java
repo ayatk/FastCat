@@ -29,13 +29,13 @@ public class CatCar extends AbstCar {
         Logger logger = Logger.getInstance();
         logger.start();
 
-        while (checker.getColorID() != 0 && !Button.ESCAPE.isDown()) {
+        while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
 //            if (Button.ENTER.isDown()) {
 //                isRightTurn = !isRightTurn;
 //            }
 
-            if (checker.getColorID() == 2) {
+            if (checker.getColorID() == Color.BLUE) {
                 isRightTurn = !isRightTurn;
             }
 

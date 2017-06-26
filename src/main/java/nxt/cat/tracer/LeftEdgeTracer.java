@@ -1,5 +1,6 @@
 package nxt.cat.tracer;
 
+import lejos.robotics.Color;
 import nxt.libs.abst.AbstDriver;
 import nxt.libs.abst.AbstNavigator;
 import nxt.libs.addon.SensorChecker;
@@ -10,11 +11,11 @@ public class LeftEdgeTracer extends AbstNavigator {
     public void decision(SensorChecker checker, AbstDriver driver) {
         int colorID = checker.getColorID();
         // white
-        if (colorID == 6) {
+        if (colorID == Color.WHITE || colorID == Color.PINK) {
             driver.turnRight();
         }
         // black
-        else if (colorID == 7) {
+        else if (colorID == Color.BLACK) {
             driver.turnLeft();
         } else {
             driver.start();
