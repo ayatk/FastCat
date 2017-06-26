@@ -45,6 +45,7 @@ public class CatCar extends AbstCar {
 
         // 停止処理
         stop(driver);
+        logger.stopThread();
 
 
         // 20170424 追加
@@ -54,7 +55,6 @@ public class CatCar extends AbstCar {
         int pressedButton = Button.waitForAnyPress();
         // ENTERが押された時だけログ送信
         if (pressedButton == Button.ID_ENTER) {
-            logger.stopThread();
             logger.SendLog();
         }
     }
