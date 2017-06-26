@@ -18,6 +18,8 @@ public class CatCar extends AbstCar {
     private AbstDriver driver = new CatDriver();
     private boolean isRightTurn = false;
 
+    private int turnCheck = 0;
+
     @Override
     public void run() {
         // 初期化処理
@@ -32,7 +34,11 @@ public class CatCar extends AbstCar {
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
 
-            if (checker.getColorID() == Color.BLUE) {
+            if (turnCheck != 0) {
+                turnCheck--;
+            }
+            if (checker.getColorID() == Color.BLUE && turnCheck == 0) {
+                turnCheck = 5;
                 isRightTurn = !isRightTurn;
             }
 
