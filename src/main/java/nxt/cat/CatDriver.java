@@ -8,15 +8,9 @@ import nxt.libs.abst.AbstDriver;
  * @author mmotoki
  */
 public class CatDriver extends AbstDriver {
-    private int speedHigh;
-    private int speedNormal;
-    private int speedLow;
-
-    public CatDriver(int speedHigh, int speedNormal, int speedLow) {
-        this.speedHigh = speedHigh;
-        this.speedNormal = speedNormal;
-        this.speedLow = speedLow;
-    }
+    private int speedHigh = 600;
+    private int speedNormal = 405;
+    private int speedLow = 175;
 
     @Override
     public void turnLeft() {

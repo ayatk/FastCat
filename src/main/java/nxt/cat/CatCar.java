@@ -15,7 +15,7 @@ public class CatCar extends AbstCar {
             "Gray", "Light gray", "Dark gray", "Cyan"};
     private AbstNavigator leftNavigater = new LeftEdgeTracer();
     private AbstNavigator rightNavigater = new RightEdgeTracer();
-    private AbstDriver driver = new CatDriver(650, 405, 175);
+    private AbstDriver driver = new CatDriver();
     private boolean isRightTurn = false;
 
     @Override
