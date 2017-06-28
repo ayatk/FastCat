@@ -126,7 +126,7 @@ public abstract class AbstDriver {
      *
      * @param speed 設定するスピード (度/秒)
      */
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         rightWheel.setSpeed(speed);
         leftWheel.setSpeed(speed);
     }
@@ -137,7 +137,7 @@ public abstract class AbstDriver {
      * @param rightSpeed 右ホイールに設定するスピード(度/秒)
      * @param leftSpeed  左ホイールに設定するスピード(度/秒)
      */
-    public void setSpeed(int rightSpeed, int leftSpeed) {
+    public void setSpeed(float rightSpeed, float leftSpeed) {
         rightWheel.setSpeed(rightSpeed);
         leftWheel.setSpeed(leftSpeed);
     }
@@ -147,7 +147,7 @@ public abstract class AbstDriver {
      *
      * @param diff スピードの変化量 (度/秒)
      */
-    public void changeSpeed(int diff) {
+    public void changeSpeed(float diff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + diff);
         leftWheel.setSpeed(leftWheel.getSpeed() + diff);
     }
@@ -158,7 +158,7 @@ public abstract class AbstDriver {
      * @param rightDiff 右ホイールのスピード変化量(度/秒)
      * @param leftDiff  左ホイールのスピード変化量(度/秒)
      */
-    public void changeSpeed(int rightDiff, int leftDiff) {
+    public void changeSpeed(float rightDiff, float leftDiff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + rightDiff);
         leftWheel.setSpeed(leftWheel.getSpeed() + leftDiff);
     }
@@ -170,7 +170,7 @@ public abstract class AbstDriver {
      *
      * @return 右ホイールの回転速度(度/秒)
      */
-    public int getSpeedRight() {
+    public float getSpeedRight() {
         return rightWheel.getSpeed();
     }
 
