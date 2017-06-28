@@ -21,11 +21,11 @@ public class SensorChecker extends Thread {
     /**
      * 使用するHitech社製カラーセンサー
      */
-    private static ColorHTSensor _sensor = new ColorHTSensor(SensorPort.S3);
+    private static ColorHTSensor sensor = new ColorHTSensor(SensorPort.S3);
     /**
      * Singletonパターンとするための，唯一のインスタンス
      */
-    private static SensorChecker _sensorChecker = new SensorChecker();
+    private static SensorChecker sensorChecker = new SensorChecker();
     /**
      * 色番号と色の名前の対応テーブル
      */
@@ -33,16 +33,16 @@ public class SensorChecker extends Thread {
     /**
      * 測定値を保存する
      */
-    private Color _color;
+    private Color color;
     /**
      * スレッドがアクティブならtrue
      */
-    private boolean _isActive = true;
+    private boolean isActive = true;
     /**
      * センサーチェック間隔 (ms)
      * setIntervalメソッドでも設定可能
      */
-    private int _interval = 50;
+    private int interval = 50;
 
     /**
      * Singleton パターンとするために，コンストラクタはprivateとなっている
@@ -56,25 +56,25 @@ public class SensorChecker extends Thread {
      * @return 唯一のインスタンス
      */
     public static SensorChecker getInstance() {
-        return _sensorChecker;
+        return sensorChecker;
     }
 
     /**
      * カラーセンサー計測スレッドの実行停止
      */
     public void stopThread() {
-        this._isActive = false;
+        this.isActive = false;
     }
 
     /**
      * カラーセンサー計測スレッドの開始
      */
     public void run() {
-        _isActive = true;
-        while (_isActive) {
-            _color = _sensor.getColor();
+        isActive = true;
+        while (isActive) {
+            color = sensor.getColor();
             try {
-                Thread.sleep(_interval);
+                Thread.sleep(interval);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -87,7 +87,7 @@ public class SensorChecker extends Thread {
      * @param interval センサーチェック間隔時間(ms)
      */
     public void setInterval(int interval) {
-        _interval = interval;
+        interval = interval;
     }
 
     /**
@@ -96,7 +96,7 @@ public class SensorChecker extends Thread {
      * @return センサーで取得した色情報
      */
     public Color getColor() {
-        return _color;
+        return color;
     }
 
     /**
@@ -105,7 +105,7 @@ public class SensorChecker extends Thread {
      * @return センサーで取得したRed成分 0～255
      */
     public int getRed() {
-        return _color.getRed();
+        return color.getRed();
     }
 
     /**
@@ -114,7 +114,7 @@ public class SensorChecker extends Thread {
      * @return センサーで取得したGreen成分 0～255
      */
     public int getGreen() {
-        return _color.getGreen();
+        return color.getGreen();
     }
 
     /**
@@ -123,7 +123,7 @@ public class SensorChecker extends Thread {
      * @return センサーで取得したBlue成分 0～255
      */
     public int getBlue() {
-        return _color.getBlue();
+        return color.getBlue();
     }
 
     /**
@@ -132,7 +132,7 @@ public class SensorChecker extends Thread {
      * @return センサーで識別した色番号
      */
     public int getColorID() {
-        return _color.getColor();
+        return color.getColor();
     }
 
     /**
