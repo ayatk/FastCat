@@ -77,6 +77,10 @@ public class Logger extends Thread {
         return logger;
     }
 
+    public NXTDataLogger getNXTLogger() {
+        return nxtLogger;
+    }
+
     /**
      * ログ記録スレッドの実行停止
      */
