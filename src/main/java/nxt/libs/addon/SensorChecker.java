@@ -87,7 +87,7 @@ public class SensorChecker extends Thread {
      * @param interval センサーチェック間隔時間(ms)
      */
     public void setInterval(int interval) {
-        interval = interval;
+        this.interval = interval;
     }
 
     /**
