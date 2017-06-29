@@ -7,14 +7,14 @@ import nxt.cat.tracer.LeftEdgeTracer;
 import nxt.cat.tracer.RightEdgeTracer;
 import nxt.libs.abst.AbstCar;
 import nxt.libs.abst.AbstDriver;
-import nxt.libs.abst.AbstNavigator;
+import nxt.libs.Navigator;
 import nxt.libs.addon.Logger;
 
 public class CatCar extends AbstCar {
     static String[] colorNames = {"Red", "Green", "Blue", "Yellow", "Magenta", "Orange", "White", "Black", "Pink",
             "Gray", "Light gray", "Dark gray", "Cyan"};
-    private AbstNavigator leftNavigater = new LeftEdgeTracer();
-    private AbstNavigator rightNavigater = new RightEdgeTracer();
+    private Navigator leftNavigater = new LeftEdgeTracer();
+    private Navigator rightNavigater = new RightEdgeTracer();
     private AbstDriver driver = new CatDriver();
     private boolean isRightTurn = false;
 

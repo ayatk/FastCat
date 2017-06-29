@@ -2,10 +2,10 @@ package nxt.cat.tracer;
 
 import lejos.robotics.Color;
 import nxt.libs.abst.AbstDriver;
-import nxt.libs.abst.AbstNavigator;
+import nxt.libs.Navigator;
 import nxt.libs.addon.SensorChecker;
 
-public class LeftEdgeTracer extends AbstNavigator {
+public class LeftEdgeTracer implements Navigator {
 
     @Override
     public void decision(SensorChecker checker, AbstDriver driver) {
