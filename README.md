@@ -1,6 +1,6 @@
-# lego-nxt
+# Fast Cat
 
-LEGO Mindstorms NXTをMacでごにょったあとの残骸になる予定のもの
+ねこ好きによるねこ好きのためのライントレースプログラム
 
 Gradleの中身は https://github.com/j-selby/Rescue-2016 のパクリスペクト
 
