@@ -1,7 +1,7 @@
-group 'com.hogehuga'
-version '1.0-SNAPSHOT'
+group 'nyan'
+version '0.1.0'
 
-def artifactName = "lego-2017"
+def artifactName = "FastCat"
 def printVerbose = false
 def mainClass = "nxt.Robot"
 
@@ -98,10 +98,10 @@ task('link', type: JavaExec, group: 'lejos',
     args += "LE"
 
     args += "-o"
-    args += "build${File.separator}${artifactName}.nxj"
+    args += "build${File.separator}${artifactName}_${version}.nxj"
 
     args += "-od"
-    args += "build${File.separator}${artifactName}.nxd"
+    args += "build${File.separator}${artifactName}_${version}.nxd"
 
     if (printVerbose) {
         args += "-v"
