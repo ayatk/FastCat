@@ -15,57 +15,47 @@ public class CatDriver extends AbstDriver {
     @Override
     public void turnLeft() {
         setSpeed(speedNormal, speedLow);
-        forward();
     }
 
     @Override
     public void turnLeftQuick() {
         setSpeed(speedHigh, speedNormal);
-        forward();
     }
 
     @Override
     public void turnLeftSlack() {
         setSpeed(speedLow, 0);
-        forward();
     }
 
     @Override
     public void turnRight() {
         setSpeed(speedLow, speedNormal);
-        forward();
     }
 
     @Override
     public void turnRightQuick() {
         setSpeed(speedNormal, speedHigh);
-        forward();
     }
 
     @Override
     public void turnRightSlack() {
         setSpeed(0, speedLow);
-        forward();
-
     }
 
     // 20160509追加
     @Override
     public void goStraight() {
         setSpeed(speedNormal);
-        forward();
     }
 
     @Override
     public void goStraightFast() {
         setSpeed(speedHigh);
-        forward();
     }
 
     @Override
     public void goStraightSlow() {
         setSpeed(speedLow);
-        forward();
     }
 
     @Override
