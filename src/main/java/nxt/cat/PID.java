@@ -41,7 +41,7 @@ public class PID {
     /**
      * PID制御で目標とする値の設定
      *
-     * @param target
+     * @param target 目標値
      */
     public void setTarget(int target) {
         this.target = target;
