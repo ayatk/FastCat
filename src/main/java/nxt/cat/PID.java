@@ -23,8 +23,8 @@ public class PID {
     private float N = 1.0F;
 
     private long cycleTime = 0L;
+    private long dt = 0;
     private float integral;
-    private float dt = 0;
     private float previous_source = 0;
 
     public PID(int target) {
