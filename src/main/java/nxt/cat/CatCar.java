@@ -13,9 +13,20 @@ import nxt.libs.addon.Logger;
 public class CatCar extends AbstCar {
     static String[] colorNames = {"Red", "Green", "Blue", "Yellow", "Magenta", "Orange", "White", "Black", "Pink",
             "Gray", "Light gray", "Dark gray", "Cyan"};
+
+    private final float Kp = 1.0f;
+    private final float Ki = 0.0f;
+    private final float Kd = 0.0f;
+
+    // targetとするセンサーの明度
+    private final int target = 25;
+
     private Navigator leftNavigater = new LeftEdgeTracer();
     private Navigator rightNavigater = new RightEdgeTracer();
     private AbstDriver driver = new CatDriver();
+
+    private PID pid = new PID(target);
+
     private boolean isRightTurn = false;
 
     private int turnCheck = 0;
@@ -25,6 +36,8 @@ public class CatCar extends AbstCar {
         // 初期化処理
         start();
 
+        // PIDパラメータの設定
+        pid.setParameter(Kp, Ki, Kd);
 
         // 20160509追加R
         // ログ記録時のみ必要
@@ -43,9 +56,9 @@ public class CatCar extends AbstCar {
             }
 
             if (isRightTurn) {
-                rightNavigater.decision(checker, driver);
+                rightNavigater.decision(checker, driver, pid);
             } else {
-                leftNavigater.decision(checker, driver);
+                leftNavigater.decision(checker, driver, pid);
             }
         }
 
