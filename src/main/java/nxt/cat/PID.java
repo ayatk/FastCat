@@ -22,10 +22,17 @@ public class PID {
     // ローパスフィルターゲイン
     private float N = 1.0F;
 
-    private long cycleTime = 0L;
-    private long dt = 0;
+    private long cycleTime = 0;
+    private long dt = 10;
     private float integral;
-    private float previous_source = 0;
+    private float previous_source = target;
+
+    private int diff;
+    private float p;
+    private float i;
+    private float d;
+    private float manipulate;
+    private float derivative;
 
     public PID(int target) {
         this.target = target;
@@ -69,6 +76,34 @@ public class PID {
         this.max = Math.abs(max);
     }
 
+    public int getDiff() {
+        return diff;
+    }
+
+    public float getP() {
+        return p;
+    }
+
+    public float getI() {
+        return i;
+    }
+
+    public float getD() {
+        return d;
+    }
+
+    public float getManipulate() {
+        return manipulate;
+    }
+
+    public float getDerivative() {
+        return derivative;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+
     /**
      * PIDの計算を行い操作量を導出する
      *
@@ -78,30 +113,29 @@ public class PID {
     public float exec(int source) {
 
         // 時間が0の場合は0を返す
-        if (cycleTime == 0L) {
+        if (cycleTime == 0) {
             cycleTime = System.currentTimeMillis();
             return 0;
         }
 
-        cycleTime = System.currentTimeMillis();
-
-        int diff = target - source;
-        float p = Kp * diff;
+        diff = target - source;
+        p = Kp * diff;
 
         integral += p * dt;
-        float i = Ki * integral;
+        i = Ki * integral;
 
-        // TODO: 2017/06/28 ローパスフィルターを実装したい
-        float derivative = (source - previous_source) / dt;
-        float d = Kd * derivative;
+        derivative = (source - previous_source) / dt;
+        d = Kd * derivative;
 
         previous_source = source;
 
-        dt = System.currentTimeMillis() - this.cycleTime;
+        dt = (Math.abs(this.cycleTime - System.currentTimeMillis()) == 0) ?
+                1 : Math.abs(this.cycleTime - System.currentTimeMillis());
         cycleTime = System.currentTimeMillis();
 
         // 普通に並列形式のPID制御を実装したけど
         // 理想PIDとどっちがいいんですかね。
+        this.manipulate = mathLimit(p + i + d);
         return mathLimit(p + i + d);
     }
 

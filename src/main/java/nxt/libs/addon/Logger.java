@@ -5,6 +5,7 @@ import lejos.nxt.comm.USB;
 import lejos.robotics.Color;
 import lejos.util.LogColumn;
 import lejos.util.NXTDataLogger;
+import nxt.cat.PID;
 
 import java.io.IOException;
 
@@ -41,6 +42,8 @@ public class Logger extends Thread {
      */
     private int interval = 50;
 
+    private PID pid;
+
     /**
      * ログの列の設定
      */
@@ -50,6 +53,13 @@ public class Logger extends Thread {
             new LogColumn("G", LogColumn.DT_INTEGER),
             new LogColumn("B", LogColumn.DT_INTEGER),
             new LogColumn("Brightness", LogColumn.DT_INTEGER),
+            new LogColumn("Diff", LogColumn.DT_INTEGER),
+            new LogColumn("P", LogColumn.DT_FLOAT),
+            new LogColumn("I", LogColumn.DT_FLOAT),
+            new LogColumn("D", LogColumn.DT_FLOAT),
+            new LogColumn("Derivative", LogColumn.DT_FLOAT),
+            new LogColumn("Manipulate", LogColumn.DT_FLOAT),
+            new LogColumn("Dt", LogColumn.DT_LONG),
             new LogColumn("RSpeed", LogColumn.DT_INTEGER),
             new LogColumn("LSpeed", LogColumn.DT_INTEGER)
     };
@@ -66,6 +76,10 @@ public class Logger extends Thread {
      * Singleton パターンとするために，コンストラクタはprivateとなっている
      */
     private Logger() {
+    }
+
+    public void setPid(PID pid) {
+        this.pid = pid;
     }
 
     /**
@@ -87,7 +101,6 @@ public class Logger extends Thread {
     public void stopThread() {
         this.isActive = false;
     }
-
 
     /**
      * ログ間隔時間の設定
@@ -115,6 +128,13 @@ public class Logger extends Thread {
             nxtLogger.writeLog(color.getGreen());
             nxtLogger.writeLog(color.getBlue());
             nxtLogger.writeLog(Math.max(Math.max(color.getRed(), color.getGreen()), color.getBlue()));
+            nxtLogger.writeLog(pid.getDiff());
+            nxtLogger.writeLog(pid.getP());
+            nxtLogger.writeLog(pid.getI());
+            nxtLogger.writeLog(pid.getD());
+            nxtLogger.writeLog(pid.getDerivative());
+            nxtLogger.writeLog(pid.getManipulate());
+            nxtLogger.writeLog(pid.getDt());
             nxtLogger.writeLog(Motor.A.getSpeed());
             nxtLogger.writeLog(Motor.C.getSpeed());
             nxtLogger.finishLine();
