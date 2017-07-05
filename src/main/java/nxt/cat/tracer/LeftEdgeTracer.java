@@ -19,9 +19,9 @@ public class LeftEdgeTracer implements Navigator {
                 float manipulate = pid.calc(checker.getBrightness());
 
                 if (manipulate < 0) {
-                    driver.changeSpeed(0, -manipulate);
+                    driver.setSpeed(driver.getBaseSpeed(), driver.getBaseSpeed() - manipulate);
                 } else {
-                    driver.changeSpeed(manipulate, 0);
+                    driver.setSpeed(driver.getBaseSpeed() + manipulate, driver.getBaseSpeed());
                 }
                 break;
             default:
