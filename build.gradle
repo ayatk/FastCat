@@ -118,7 +118,7 @@ task('upload', type: JavaExec, group: 'lejos', description: 'Upload the code to 
     // Use 32bit JVM
     jvmArgs += "-d32"
 
-    args += "build${File.separator}${artifactName}.nxj"
+    args += "build${File.separator}${artifactName}_${version}.nxj"
 }
 
 task('uploadAndRun', type: JavaExec, group: 'lejos', description: 'Uploads and runs the code on the robot.', dependsOn: 'link') {
@@ -129,7 +129,7 @@ task('uploadAndRun', type: JavaExec, group: 'lejos', description: 'Uploads and r
     jvmArgs += "-d32"
 
     args += "-r"
-    args += "build${File.separator}${artifactName}.nxj"
+    args += "build${File.separator}${artifactName}_${version}.nxj"
 }
 
 task('chartingLogger', type: JavaExec, group: 'lejos', description: 'Start ChartingLogger') {
