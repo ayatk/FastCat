@@ -45,6 +45,8 @@ public class CatCar extends AbstCar {
         logger.setPid(pid);
         logger.start();
 
+        driver.setBaseSpeed(150);
+        driver.start();
 
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
