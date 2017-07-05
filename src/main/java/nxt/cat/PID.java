@@ -110,7 +110,7 @@ public class PID {
      * @param source 各種センサーの入力値
      * @return 出力飽和制限の適用された操作量
      */
-    public float exec(int source) {
+    public float calc(int source) {
 
         // 時間が0の場合は0を返す
         if (cycleTime == 0) {

@@ -16,7 +16,7 @@ public class RightEdgeTracer implements Navigator {
             case Color.WHITE:
             case Color.PINK:
 //               float manipulate = pid.doPID(checker.getBrightness());
-                float manipulate = pid.exec(checker.getBrightness());
+                float manipulate = pid.calc(checker.getBrightness());
 
                 if (manipulate > 0) {
                     driver.changeSpeed(0, -manipulate);
