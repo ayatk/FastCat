@@ -19,7 +19,7 @@ public class CatCar extends AbstCar {
     private final float Kd = 0.0f;
 
     // targetとするセンサーの明度
-    private final int target = 25;
+    private final int target = 30;
 
     private Navigator leftNavigater = new LeftEdgeTracer();
     private Navigator rightNavigater = new RightEdgeTracer();
