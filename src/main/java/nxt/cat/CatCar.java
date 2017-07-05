@@ -42,6 +42,7 @@ public class CatCar extends AbstCar {
         // 20160509追加R
         // ログ記録時のみ必要
         Logger logger = Logger.getInstance();
+        logger.setPid(pid);
         logger.start();
 
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
