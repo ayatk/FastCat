@@ -135,7 +135,7 @@ public abstract class AbstDriver {
     /**
      * スピードの設定
      *
-     * @param speed 設定するスピード (度/秒)
+     * @param speed 設定するスピード (angle/sec)
      */
     public void setSpeed(float speed) {
         rightWheel.setSpeed(speed);
@@ -145,8 +145,8 @@ public abstract class AbstDriver {
     /**
      * 左右のホイールごとにスピードを設定する
      *
-     * @param rightSpeed 右ホイールに設定するスピード(度/秒)
-     * @param leftSpeed  左ホイールに設定するスピード(度/秒)
+     * @param rightSpeed 右ホイールに設定するスピード (angle/sec)
+     * @param leftSpeed  左ホイールに設定するスピード (angle/sec)
      */
     public void setSpeed(float rightSpeed, float leftSpeed) {
         rightWheel.setSpeed(rightSpeed);
@@ -156,7 +156,7 @@ public abstract class AbstDriver {
     /**
      * スピードを変化させる
      *
-     * @param diff スピードの変化量 (度/秒)
+     * @param diff スピードの変化量 (angle/sec)
      */
     public void changeSpeed(float diff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + diff);
@@ -166,8 +166,8 @@ public abstract class AbstDriver {
     /**
      * スピードを変化させる
      *
-     * @param rightDiff 右ホイールのスピード変化量(度/秒)
-     * @param leftDiff  左ホイールのスピード変化量(度/秒)
+     * @param rightDiff 右ホイールのスピード変化量 (angle/sec)
+     * @param leftDiff  左ホイールのスピード変化量 (angle/sec)
      */
     public void changeSpeed(float rightDiff, float leftDiff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + rightDiff);
@@ -179,7 +179,7 @@ public abstract class AbstDriver {
     /**
      * 右ホイールの回転速度取得
      *
-     * @return 右ホイールの回転速度(度/秒)
+     * @return 右ホイールの回転速度 (angle/sec)
      */
     public float getSpeedRight() {
         return rightWheel.getSpeed();
@@ -190,7 +190,7 @@ public abstract class AbstDriver {
     /**
      * 左ホイールの回転速度取得
      *
-     * @return 左ホイールの回転速度(度/秒)
+     * @return 左ホイールの回転速度 (angle/sec)
      */
     public int getSpeedLeft() {
         return leftWheel.getSpeed();
