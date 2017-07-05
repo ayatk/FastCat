@@ -29,7 +29,7 @@ public class CatCar extends AbstCar {
 
     private boolean isRightTurn = false;
 
-    private int turnCheck = 0;
+    private boolean isBlue = false;
 
     @Override
     public void run() {
@@ -45,15 +45,17 @@ public class CatCar extends AbstCar {
         logger.setPid(pid);
         logger.start();
 
+
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
 
-            if (turnCheck != 0) {
-                turnCheck--;
+            if (checker.getColorID() == Color.BLACK && isBlue) {
+                isBlue = false;
             }
-            if (checker.getColorID() == Color.BLUE && turnCheck == 0) {
-                turnCheck = 5;
+
+            if (checker.getColorID() == Color.BLUE && !isBlue) {
                 isRightTurn = !isRightTurn;
+                isBlue = true;
             }
 
             if (isRightTurn) {
