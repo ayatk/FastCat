@@ -4,6 +4,9 @@ import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 
 public abstract class AbstDriver {
+
+    private float baseSpeed = 400;
+
     protected static NXTRegulatedMotor rightWheel = Motor.A;
     protected static NXTRegulatedMotor leftWheel = Motor.C;
 
@@ -119,6 +122,14 @@ public abstract class AbstDriver {
     public void stop() {
         rightWheel.stop(true);
         leftWheel.stop();
+    }
+
+    public float getBaseSpeed() {
+        return baseSpeed;
+    }
+
+    public void setBaseSpeed(float baseSpeed) {
+        this.baseSpeed = baseSpeed;
     }
 
     /**
