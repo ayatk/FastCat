@@ -18,9 +18,9 @@ public class RightEdgeTracer implements Navigator {
                 float manipulate = pid.calc(checker.getBrightness());
 
                 if (manipulate > 0) {
-                    driver.setSpeed(driver.getBaseSpeed() + manipulate, driver.getBaseSpeed());
+                    driver.setSpeed(driver.getBaseSpeed(), driver.getBaseSpeed() + manipulate);
                 } else {
-                    driver.setSpeed(driver.getBaseSpeed(), driver.getBaseSpeed() - manipulate);
+                    driver.setSpeed(driver.getBaseSpeed() - manipulate, driver.getBaseSpeed());
                 }
                 break;
             default:
