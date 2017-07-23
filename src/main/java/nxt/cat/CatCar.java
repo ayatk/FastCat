@@ -27,7 +27,7 @@ public class CatCar extends AbstCar {
 
     private PID pid = new PID(target);
 
-    private boolean isRightTurn = false;
+    private boolean isRightTurn = true;
 
     private boolean isBlue = false;
 
