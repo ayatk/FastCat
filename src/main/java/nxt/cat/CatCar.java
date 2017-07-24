@@ -43,9 +43,11 @@ public class CatCar extends AbstCar {
         // ログ記録時のみ必要
         Logger logger = Logger.getInstance();
         logger.setPid(pid);
+        logger.setInterval(0);
         logger.start();
 
-        driver.setBaseSpeed(300);
+        checker.setInterval(0);
+        driver.setBaseSpeed(210);
         driver.start();
 
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
