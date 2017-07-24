@@ -8,69 +8,58 @@ import nxt.libs.abst.AbstDriver;
  * @author mmotoki
  */
 public class CatDriver extends AbstDriver {
-    private int speedHigh = 600;
-    private int speedNormal = 405;
-    private int speedLow = 175;
+    private float speedHigh = (float) (getBaseSpeed() * 1.5);
+    private float speedLow = (float) (getBaseSpeed() * 0.43);
 
     @Override
     public void turnLeft() {
-        setSpeed(speedNormal, speedLow);
-        forward();
+        setSpeed(getBaseSpeed(), speedLow);
     }
 
     @Override
     public void turnLeftQuick() {
-        setSpeed(speedHigh, speedNormal);
-        forward();
+        setSpeed(speedHigh, getBaseSpeed());
     }
 
     @Override
     public void turnLeftSlack() {
         setSpeed(speedLow, 0);
-        forward();
     }
 
     @Override
     public void turnRight() {
-        setSpeed(speedLow, speedNormal);
-        forward();
+        setSpeed(speedLow, getBaseSpeed());
     }
 
     @Override
     public void turnRightQuick() {
-        setSpeed(speedNormal, speedHigh);
-        forward();
+        setSpeed(getBaseSpeed(), speedHigh);
     }
 
     @Override
     public void turnRightSlack() {
         setSpeed(0, speedLow);
-        forward();
-
     }
 
     // 20160509追加
     @Override
     public void goStraight() {
-        setSpeed(speedNormal);
-        forward();
+        setSpeed(getBaseSpeed());
     }
 
     @Override
     public void goStraightFast() {
         setSpeed(speedHigh);
-        forward();
     }
 
     @Override
     public void goStraightSlow() {
         setSpeed(speedLow);
-        forward();
     }
 
     @Override
     public void start() {
-        setSpeed(speedHigh);
+        setSpeed(getBaseSpeed());
         forward();
     }
 

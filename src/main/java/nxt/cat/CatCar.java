@@ -7,45 +7,65 @@ import nxt.cat.tracer.LeftEdgeTracer;
 import nxt.cat.tracer.RightEdgeTracer;
 import nxt.libs.abst.AbstCar;
 import nxt.libs.abst.AbstDriver;
-import nxt.libs.abst.AbstNavigator;
+import nxt.libs.Navigator;
 import nxt.libs.addon.Logger;
 
 public class CatCar extends AbstCar {
     static String[] colorNames = {"Red", "Green", "Blue", "Yellow", "Magenta", "Orange", "White", "Black", "Pink",
             "Gray", "Light gray", "Dark gray", "Cyan"};
-    private AbstNavigator leftNavigater = new LeftEdgeTracer();
-    private AbstNavigator rightNavigater = new RightEdgeTracer();
-    private AbstDriver driver = new CatDriver();
-    private boolean isRightTurn = false;
 
-    private int turnCheck = 0;
+    private final float Kp = 1.0f;
+    private final float Ki = 0.0f;
+    private final float Kd = 0.0f;
+
+    // targetとするセンサーの明度
+    private final int target = 25;
+
+    private Navigator leftNavigater = new LeftEdgeTracer();
+    private Navigator rightNavigater = new RightEdgeTracer();
+    private AbstDriver driver = new CatDriver();
+
+    private PID pid = new PID(target);
+
+    private boolean isRightTurn = true;
+
+    private boolean isBlue = false;
 
     @Override
     public void run() {
         // 初期化処理
         start();
 
+        // PIDパラメータの設定
+        pid.setParameter(Kp, Ki, Kd);
 
         // 20160509追加R
         // ログ記録時のみ必要
         Logger logger = Logger.getInstance();
+        logger.setPid(pid);
+        logger.setInterval(0);
         logger.start();
+
+        checker.setInterval(0);
+        driver.setBaseSpeed(210);
+        driver.start();
 
         while (checker.getColorID() != Color.RED && !Button.ESCAPE.isDown()) {
             show();
 
-            if (turnCheck != 0) {
-                turnCheck--;
+            if (checker.getColorID() == Color.BLACK && isBlue) {
+                isBlue = false;
             }
-            if (checker.getColorID() == Color.BLUE && turnCheck == 0) {
-                turnCheck = 5;
+
+            if (checker.getColorID() == Color.BLUE && !isBlue) {
                 isRightTurn = !isRightTurn;
+                isBlue = true;
             }
 
             if (isRightTurn) {
-                rightNavigater.decision(checker, driver);
+                rightNavigater.decision(checker, driver, pid);
             } else {
-                leftNavigater.decision(checker, driver);
+                leftNavigater.decision(checker, driver, pid);
             }
         }
 

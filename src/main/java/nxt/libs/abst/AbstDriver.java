@@ -4,6 +4,9 @@ import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 
 public abstract class AbstDriver {
+
+    private float baseSpeed = 400;
+
     protected static NXTRegulatedMotor rightWheel = Motor.A;
     protected static NXTRegulatedMotor leftWheel = Motor.C;
 
@@ -121,12 +124,20 @@ public abstract class AbstDriver {
         leftWheel.stop();
     }
 
+    public float getBaseSpeed() {
+        return baseSpeed;
+    }
+
+    public void setBaseSpeed(float baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
     /**
      * スピードの設定
      *
-     * @param speed 設定するスピード (度/秒)
+     * @param speed 設定するスピード (angle/sec)
      */
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         rightWheel.setSpeed(speed);
         leftWheel.setSpeed(speed);
     }
@@ -134,10 +145,10 @@ public abstract class AbstDriver {
     /**
      * 左右のホイールごとにスピードを設定する
      *
-     * @param rightSpeed 右ホイールに設定するスピード(度/秒)
-     * @param leftSpeed  左ホイールに設定するスピード(度/秒)
+     * @param rightSpeed 右ホイールに設定するスピード (angle/sec)
+     * @param leftSpeed  左ホイールに設定するスピード (angle/sec)
      */
-    public void setSpeed(int rightSpeed, int leftSpeed) {
+    public void setSpeed(float rightSpeed, float leftSpeed) {
         rightWheel.setSpeed(rightSpeed);
         leftWheel.setSpeed(leftSpeed);
     }
@@ -145,9 +156,9 @@ public abstract class AbstDriver {
     /**
      * スピードを変化させる
      *
-     * @param diff スピードの変化量 (度/秒)
+     * @param diff スピードの変化量 (angle/sec)
      */
-    public void changeSpeed(int diff) {
+    public void changeSpeed(float diff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + diff);
         leftWheel.setSpeed(leftWheel.getSpeed() + diff);
     }
@@ -155,10 +166,10 @@ public abstract class AbstDriver {
     /**
      * スピードを変化させる
      *
-     * @param rightDiff 右ホイールのスピード変化量(度/秒)
-     * @param leftDiff  左ホイールのスピード変化量(度/秒)
+     * @param rightDiff 右ホイールのスピード変化量 (angle/sec)
+     * @param leftDiff  左ホイールのスピード変化量 (angle/sec)
      */
-    public void changeSpeed(int rightDiff, int leftDiff) {
+    public void changeSpeed(float rightDiff, float leftDiff) {
         rightWheel.setSpeed(rightWheel.getSpeed() + rightDiff);
         leftWheel.setSpeed(leftWheel.getSpeed() + leftDiff);
     }
@@ -168,9 +179,9 @@ public abstract class AbstDriver {
     /**
      * 右ホイールの回転速度取得
      *
-     * @return 右ホイールの回転速度(度/秒)
+     * @return 右ホイールの回転速度 (angle/sec)
      */
-    public int getSpeedRight() {
+    public float getSpeedRight() {
         return rightWheel.getSpeed();
     }
 
@@ -179,7 +190,7 @@ public abstract class AbstDriver {
     /**
      * 左ホイールの回転速度取得
      *
-     * @return 左ホイールの回転速度(度/秒)
+     * @return 左ホイールの回転速度 (angle/sec)
      */
     public int getSpeedLeft() {
         return leftWheel.getSpeed();

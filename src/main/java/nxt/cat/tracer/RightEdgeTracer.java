@@ -2,24 +2,29 @@ package nxt.cat.tracer;
 
 
 import lejos.robotics.Color;
+import nxt.cat.PID;
+import nxt.libs.Navigator;
 import nxt.libs.abst.AbstDriver;
-import nxt.libs.abst.AbstNavigator;
 import nxt.libs.addon.SensorChecker;
 
-public class RightEdgeTracer extends AbstNavigator {
+public class RightEdgeTracer implements Navigator {
 
     @Override
-    public void decision(SensorChecker checker, AbstDriver driver) {
-        int colorID = checker.getColorID();
-        // white
-        if (colorID == Color.WHITE || colorID == Color.PINK) {
-            driver.turnLeft();
-        }
-        // black
-        else if (colorID == Color.BLACK) {
-            driver.turnRight();
-        } else {
-            driver.start();
+    public void decision(SensorChecker checker, AbstDriver driver, PID pid) {
+        switch (checker.getColorID()) {
+            case Color.BLACK:
+            case Color.WHITE:
+            case Color.PINK:
+                float manipulate = pid.calc(checker.getBrightness());
+
+                if (manipulate > 0) {
+                    driver.setSpeed(driver.getBaseSpeed(), driver.getBaseSpeed() + manipulate);
+                } else {
+                    driver.setSpeed(driver.getBaseSpeed() - manipulate, driver.getBaseSpeed());
+                }
+                break;
+            default:
+                driver.goStraight();
         }
     }
 }
