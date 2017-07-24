@@ -125,7 +125,7 @@ public class PID {
         diff = target - source;
         p = Kp * diff;
 
-        integral += p * dt;
+        integral += p * (dt / 100);
         i = Ki * integral;
 
         derivative = (source - previous_source) / dt;
