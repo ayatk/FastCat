@@ -58,6 +58,7 @@ public class Logger extends Thread {
             new LogColumn("I", LogColumn.DT_FLOAT),
             new LogColumn("D", LogColumn.DT_FLOAT),
             new LogColumn("Derivative", LogColumn.DT_FLOAT),
+            new LogColumn("Integral", LogColumn.DT_FLOAT),
             new LogColumn("Manipulate", LogColumn.DT_FLOAT),
             new LogColumn("Dt", LogColumn.DT_LONG),
             new LogColumn("RSpeed", LogColumn.DT_INTEGER),
@@ -133,6 +134,7 @@ public class Logger extends Thread {
             nxtLogger.writeLog(pid.getI());
             nxtLogger.writeLog(pid.getD());
             nxtLogger.writeLog(pid.getDerivative());
+            nxtLogger.writeLog(pid.getIntegral());
             nxtLogger.writeLog(pid.getManipulate());
             nxtLogger.writeLog(pid.getDt());
             nxtLogger.writeLog(Motor.A.getSpeed());

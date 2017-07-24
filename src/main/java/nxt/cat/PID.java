@@ -92,6 +92,10 @@ public class PID {
         return d;
     }
 
+    public float getIntegral() {
+        return integral;
+    }
+
     public float getManipulate() {
         return manipulate;
     }
